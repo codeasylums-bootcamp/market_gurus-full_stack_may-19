@@ -52,15 +52,17 @@
              <h1 class="h1" style="color: aliceblue">HELLO!!Have a good day...</h1>
 </div><br><br><br>
 <div class="users_imageUpload">
-    <form action="" method="POST">
+    <form action="http://localhost:3006/product" method="POST" enctype="multipart/form-data">
         <h1>Details</h1>
         Upload The image here: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        <input type="file" value="image" name="image" accept="image/*" onchange="loadFile(event)"><br><br>
+        <input type="file"  id ='img' value="image" name="productImage" accept="image/*" onchange="loadFile(event)"><br><br>
         <img id="output"/><br>
+        <input type="text"  id="namee" value="name" name="name">
         <br>
-        <textarea rows="4" cols="50" placeholder="Description"></textarea><br>
-        <input type="submit" value="send">
-
+        <textarea rows="4" cols="50" id="despUser" name="descriptionUs" placeholder="Description"></textarea><br>
+        <input type="text" name="descriptionPd" value="hello" hidden >
+        <input type="number" name="price" value="123" hidden>
+        <button type="submit" value="send" >Submit</button>
     </form>
 </div> 
 <div class="div_norti">
@@ -103,6 +105,22 @@
         // document.body.scrollTop = 0;
         // document.documentElement.scrollTop = 0;
         // }
+
+        function clickMe(){
+					t1= document.getElementById("img").value;
+					t2 = document.getElementById("despUser").value;
+					t3 = document.getElementById("namee").value;			
+					s = `productImage=${t1}&descriptionUs=${t2}&name=${t3}`;
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", 'http://localhost:3006/', true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {//Call a function when the state changes.
+    if(xhr.readyState == 4 && xhr.status == 200) {
+        alert(xhr.responseText);
+    }
+}
+					xhr.send(s);
+				}
 
       </script>
     </body>
